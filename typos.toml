@@ -10,7 +10,15 @@ extend-ignore-re = [
 [default.extend-words]
 color = "color"
 sade = "sade"
+# Win32 notification-icon messages (NIN_SELECT, NIN_KEYSELECT).
+NIN = "NIN"
 
 [files]
 ignore-hidden = false
-extend-exclude = [".git", "node_modules", "pnpm-lock.yaml", "pnpm-workspace.yaml"]
+extend-exclude = [
+	".git",
+	"node_modules",
+	"pnpm-lock.yaml",
+	"pnpm-workspace.yaml",
+	"apps/windows/vendor",
+]

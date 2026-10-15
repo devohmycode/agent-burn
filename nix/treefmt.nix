@@ -80,6 +80,10 @@ in
           };
         };
 
+        # Third-party crates patched for the Windows app keep their upstream
+        # formatting and spelling.
+        settings.global.excludes = [ "apps/windows/vendor/**" ];
+
         settings.formatter = {
           deadnix.priority = 1;
           statix.priority = 2;

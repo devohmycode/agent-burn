@@ -1,0 +1,32 @@
+name: Windows app
+on:
+  pull_request:
+    paths:
+      [
+        'apps/windows/**',
+        'rust/**',
+        'rust-toolchain.toml',
+        'flake.lock',
+        '.github/workflows/windows.yaml',
+      ]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2025
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+      - name: Check, test, build and pack
+        shell: pwsh
+        run: ./apps/windows/build.ps1 -Check
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: agent-burn-windows-x64
+          path: |
+            apps/windows/dist/*.zip
+            apps/windows/dist/*.zip.sha256
+          if-no-files-found: error
