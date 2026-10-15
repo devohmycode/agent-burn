@@ -12,7 +12,9 @@ the active `sessions/` copy wins.
 
 Weekly quota uses the live ChatGPT `wham/usage` account meter when a Codex
 OAuth token is available and `--offline` is not set. Session `rate_limits`
-envelopes are the fallback. Model-specific Spark meters (`codex_bengalfox`)
+envelopes are the fallback. When Codex logs are detected but `auth.json` holds
+no ChatGPT token (an API-key sign-in included), live `summary --value --json`
+sets `codexAccountStatus: "signedOut"`. Model-specific Spark meters (`codex_bengalfox`)
 are not the account weekly quota.
 
 `wham/usage` sometimes over-counts the weekly meter for the same window (seen:

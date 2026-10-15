@@ -3,6 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
+#[cfg(not(target_os = "windows"))]
 use crate::home;
 
 pub(super) const CURSOR_DATA_DIR_ENV: &str = "CURSOR_DATA_DIR";
@@ -14,13 +15,14 @@ pub(super) struct CursorCredentials {
 }
 
 pub(super) fn credentials() -> CursorCredentials {
-    credentials_from(
-        state_db_path().as_deref(),
-        env::var(CURSOR_ACCESS_TOKEN_ENV)
-            .ok()
-            .map(|value| value.trim().to_string())
-            .filter(|value| !value.is_empty()),
-    )
+    credentials_from(state_db_path().as_deref(), env_token())
+}
+
+fn env_token() -> Option<String> {
+    env::var(CURSOR_ACCESS_TOKEN_ENV)
+        .ok()
+        .map(|value| value.trim().to_string())
+        .filter(|value| !value.is_empty())
 }
 
 pub(super) fn credentials_from(
@@ -35,6 +37,15 @@ pub(super) fn credentials_from(
 
 pub(crate) fn detected_plan() -> Option<String> {
     credentials().membership
+}
+
+/// Cursor is installed, its state database found, but holds no sign-in.
+pub(crate) fn signed_out() -> bool {
+    signed_out_from(state_db_path().as_deref(), env_token())
+}
+
+fn signed_out_from(db_path: Option<&Path>, env_token: Option<String>) -> bool {
+    db_path.is_some() && credentials_from(db_path, env_token).token.is_none()
 }
 
 pub(super) fn state_db_path() -> Option<PathBuf> {
@@ -57,26 +68,25 @@ pub(super) fn state_db_path() -> Option<PathBuf> {
     default_state_db_path().filter(|path| path.is_file())
 }
 
+#[cfg(target_os = "macos")]
 fn default_state_db_path() -> Option<PathBuf> {
     let home = home::home_dir()?;
-    #[cfg(target_os = "macos")]
-    {
-        return Some(
-            home.join("Library/Application Support/Cursor/User/globalStorage/state.vscdb"),
-        );
-    }
-    #[cfg(target_os = "windows")]
-    {
-        let app_data = env::var_os("APPDATA").map(PathBuf::from)?;
-        return Some(app_data.join("Cursor/User/globalStorage/state.vscdb"));
-    }
-    #[cfg(not(any(target_os = "macos", target_os = "windows")))]
-    {
-        let base = env::var_os("XDG_CONFIG_HOME")
-            .map(PathBuf::from)
-            .unwrap_or_else(|| home.join(".config"));
-        Some(base.join("Cursor/User/globalStorage/state.vscdb"))
-    }
+    Some(home.join("Library/Application Support/Cursor/User/globalStorage/state.vscdb"))
+}
+
+#[cfg(target_os = "windows")]
+fn default_state_db_path() -> Option<PathBuf> {
+    let app_data = env::var_os("APPDATA").map(PathBuf::from)?;
+    Some(app_data.join("Cursor/User/globalStorage/state.vscdb"))
+}
+
+#[cfg(not(any(target_os = "macos", target_os = "windows")))]
+fn default_state_db_path() -> Option<PathBuf> {
+    let home = home::home_dir()?;
+    let base = env::var_os("XDG_CONFIG_HOME")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| home.join(".config"));
+    Some(base.join("Cursor/User/globalStorage/state.vscdb"))
 }
 
 fn read_item(db_path: &Path, key: &str) -> Option<String> {
@@ -156,6 +166,41 @@ mod tests {
     }
 
     #[test]
+    fn state_db_without_token_is_signed_out() {
+        let fixture = Fixture::new();
+        let db_path = fixture.path("state.vscdb");
+        write_state_db(&db_path, "", "free");
+
+        assert!(signed_out_from(Some(&db_path), None));
+    }
+
+    #[test]
+    fn state_db_with_token_is_signed_in() {
+        let fixture = Fixture::new();
+        let db_path = fixture.path("state.vscdb");
+        write_state_db(&db_path, "jwt-token", "pro");
+
+        assert!(!signed_out_from(Some(&db_path), None));
+    }
+
+    #[test]
+    fn env_token_counts_as_a_sign_in() {
+        let fixture = Fixture::new();
+        let db_path = fixture.path("state.vscdb");
+        write_state_db(&db_path, "", "free");
+
+        assert!(!signed_out_from(
+            Some(&db_path),
+            Some("env-token".to_string())
+        ));
+    }
+
+    #[test]
+    fn missing_state_db_is_an_absent_source_not_a_sign_out() {
+        assert!(!signed_out_from(None, None));
+    }
+
+    #[test]
     fn finds_state_db_under_cursor_data_dir() {
         let fixture = Fixture::new();
         let _ = fixture.create_dir_all("User/globalStorage");
@@ -170,5 +215,22 @@ mod tests {
             state_db_path().as_deref(),
             Some(fixture.path("User/globalStorage/state.vscdb").as_path())
         );
+    }
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    fn reads_state_db_under_app_data_with_spaces_and_accents() {
+        let fixture = Fixture::new();
+        let app_data = fixture.create_dir_all("Profil Lea Été/AppData/Roaming");
+        let _ = fixture.create_dir_all("Profil Lea Été/AppData/Roaming/Cursor/User/globalStorage");
+        let db_path = app_data.join("Cursor/User/globalStorage/state.vscdb");
+        write_state_db(&db_path, "jwt-token", "pro");
+        let _app_data = EnvVarGuard::set("APPDATA", &app_data);
+
+        let credentials = credentials_from(default_state_db_path().as_deref(), None);
+
+        assert_eq!(default_state_db_path(), Some(db_path));
+        assert_eq!(credentials.token.as_deref(), Some("jwt-token"));
+        assert_eq!(credentials.membership.as_deref(), Some("pro"));
     }
 }

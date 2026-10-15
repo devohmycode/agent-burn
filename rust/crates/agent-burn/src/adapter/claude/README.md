@@ -74,7 +74,9 @@ refresh token is single use and two uncoordinated refreshers log every
    write goes through `security -i` stdin, so no secret reaches `argv`.
 
 A refused renewal sets `claudeAccountStatus: "signInExpired"` and is retried
-after 10 minutes; only `/login` in `claude` recovers a revoked sign-in.
+after 10 minutes; only `/login` in `claude` recovers a revoked sign-in. When
+Claude logs are detected but no sign-in is stored, live `summary --value --json`
+sets `claudeAccountStatus: "signedOut"`.
 
 `AGENT_BURN_FORCE_REFRESH=1` is the app's hard refresh. It skips the shared
 fresh reading and retries a refused renewal right away.

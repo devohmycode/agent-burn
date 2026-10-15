@@ -5,6 +5,9 @@ icon: Variable
 ---
 
 Agent Burn inherits the local data-directory detection from the upstream readers.
+On Windows, default directories sit under the user profile (`%USERPROFILE%`,
+and `%APPDATA%` for Cursor) even when `HOME` points elsewhere, as Claude Code
+and Codex do.
 
 Common variables:
 

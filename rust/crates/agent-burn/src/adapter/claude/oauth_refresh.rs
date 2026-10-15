@@ -394,9 +394,29 @@ mod tests {
         assert!(!lock_dir(&lock, Instant::now()));
 
         let old = SystemTime::now() - Duration::from_secs(120);
-        fs::File::open(&lock).unwrap().set_modified(old).unwrap();
+        open_dir_for_times(&lock).set_modified(old).unwrap();
         assert!(lock_dir(&lock, Instant::now()));
         assert!(!is_stale(&lock));
         let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[cfg(not(windows))]
+    fn open_dir_for_times(path: &Path) -> fs::File {
+        fs::File::open(path).unwrap()
+    }
+
+    /// Windows opens a directory handle only with `FILE_FLAG_BACKUP_SEMANTICS`,
+    /// and changing its times needs `FILE_WRITE_ATTRIBUTES`.
+    #[cfg(windows)]
+    fn open_dir_for_times(path: &Path) -> fs::File {
+        use std::os::windows::fs::OpenOptionsExt;
+
+        const FILE_WRITE_ATTRIBUTES: u32 = 0x0100;
+        const FILE_FLAG_BACKUP_SEMANTICS: u32 = 0x0200_0000;
+        fs::OpenOptions::new()
+            .access_mode(FILE_WRITE_ATTRIBUTES)
+            .custom_flags(FILE_FLAG_BACKUP_SEMANTICS)
+            .open(path)
+            .unwrap()
     }
 }

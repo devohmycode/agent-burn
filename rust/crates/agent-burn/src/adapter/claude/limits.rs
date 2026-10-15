@@ -64,12 +64,14 @@ pub(crate) fn live_usage_limits(offline: bool) -> Option<(ClaudeUsageLimits, Tim
     Some((parse_usage_limits(&body)?, observed_at))
 }
 
-/// A usage body with when Anthropic reported it, and whether Claude Code's
-/// sign-in lapsed and Anthropic refused to renew it.
+/// A usage body with when Anthropic reported it, whether Claude Code's
+/// sign-in lapsed and Anthropic refused to renew it, and whether no sign-in
+/// was stored when one was needed.
 #[derive(Debug, Default)]
 struct Usage {
     body: Option<(String, TimestampMs)>,
     sign_in_expired: bool,
+    signed_out: bool,
 }
 
 fn usage_body(offline: bool, max_age_ms: i64) -> Usage {
@@ -142,11 +144,13 @@ where
     if !force && let Some(body) = cached(cache, usage_cache::FRESH_MS) {
         return Usage {
             body: Some(body),
-            sign_in_expired: false,
+            ..Usage::default()
         };
     }
     let mut sign_in_expired = false;
-    if let Some(token) = token()
+    let token = token();
+    let signed_out = token.is_none();
+    if let Some(token) = token
         && !cache.is_blocked(now)
     {
         let mut renew = |cache: &mut UsageCache, token: &OAuthToken, rejected: bool| {
@@ -173,7 +177,7 @@ where
                 cache.store_body(body.clone(), now);
                 return Usage {
                     body: Some((body, now)),
-                    sign_in_expired: false,
+                    ..Usage::default()
                 };
             }
             Some(Fetch::RateLimited(retry_after)) => cache.store_rate_limit(retry_after, now),
@@ -184,6 +188,7 @@ where
     Usage {
         body: cached(cache, max_age_ms),
         sign_in_expired,
+        signed_out,
     }
 }
 
@@ -193,6 +198,9 @@ pub(crate) struct AccountLoad {
     pub(crate) account: Option<Value>,
     /// Claude Code's sign-in expired and Anthropic refused to renew it.
     pub(crate) sign_in_expired: bool,
+    /// No Claude Code sign-in was stored when the meters needed one; never
+    /// set offline or while a fresh shared reading serves the meters.
+    pub(crate) signed_out: bool,
 }
 
 pub(crate) fn load_account(offline: bool) -> AccountLoad {
@@ -209,6 +217,7 @@ pub(crate) fn load_account(offline: bool) -> AccountLoad {
     AccountLoad {
         account,
         sign_in_expired: usage.sign_in_expired,
+        signed_out: usage.signed_out,
     }
 }
 
@@ -787,8 +796,30 @@ mod tests {
         );
 
         assert!(usage.sign_in_expired);
+        assert!(!usage.signed_out);
         assert!(usage.body.is_some());
         assert_eq!(cache.blocked_until, None);
+    }
+
+    #[test]
+    fn missing_sign_in_reports_signed_out_and_keeps_the_last_reading() {
+        let now = at(0);
+        let mut cache = stale_cache(now);
+
+        let usage = resolve_usage(
+            &mut cache,
+            request(now, usage_cache::STALE_MS),
+            Sources {
+                token: || -> Option<OAuthToken> { None },
+                fetch: |_: &str| -> Fetch { panic!("no sign-in means no request") },
+                claude_code: no_claude_code,
+                renew: no_renewal,
+            },
+        );
+
+        assert!(usage.signed_out);
+        assert!(!usage.sign_in_expired);
+        assert_eq!(usage.body.map(|(_, at)| at), cache.fetched_at);
     }
 
     #[test]

@@ -36,6 +36,8 @@ still have remaining balance, then fall back to the included allowance.
 Monetary fields are converted from cents to USD; absent amounts remain null.
 Grant IDs and internal source labels are not retained in the output.
 These balances are distinct from API-equivalent token costs.
+When `state.vscdb` exists without an access token and `CURSOR_ACCESS_TOKEN` is
+unset, the output sets `cursorAccountStatus: "signedOut"` instead.
 Cursor agent `daily` rows also include `cursorModelsCost` and
 `cursorModelsTokens` for Composer, Auto, and other Cursor-hosted models.
 

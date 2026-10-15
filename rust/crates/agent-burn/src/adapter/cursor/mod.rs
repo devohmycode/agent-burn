@@ -7,7 +7,7 @@ mod report;
 pub(crate) use account::{live_window, load_account};
 pub(crate) use loader::load_entries;
 pub(crate) use parser::is_cursor_model;
-pub(crate) use paths::detected_plan as detected_membership;
+pub(crate) use paths::{detected_plan as detected_membership, signed_out};
 pub(crate) use report::summarize_entries;
 
 #[cfg(test)]

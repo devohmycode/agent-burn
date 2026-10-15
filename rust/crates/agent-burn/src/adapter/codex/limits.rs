@@ -133,6 +133,11 @@ fn looks_overcounted(live: f64, logged: f64) -> bool {
     live > logged * 1.5 + 3.0
 }
 
+/// A ChatGPT sign-in is stored in `auth.json`; API-key sign-ins have no live limits.
+pub(crate) fn has_sign_in() -> bool {
+    access_token().is_some()
+}
+
 pub(super) fn access_token() -> Option<String> {
     for home in codex_home_paths().ok()? {
         let path = home.join("auth.json");
@@ -227,6 +232,8 @@ fn rate_window(value: Option<&Value>) -> Option<RateWindow> {
 
 #[cfg(test)]
 mod tests {
+    use agent_burn_test_support::{EnvVarGuard, Fixture};
+
     use super::*;
 
     const LIVE_BODY: &str = r#"{
@@ -372,6 +379,35 @@ mod tests {
     fn reads_access_token_from_auth_json() {
         let json = r#"{"tokens":{"access_token":"tok-live","refresh_token":"r"}}"#;
         assert_eq!(access_token_from_auth(json).as_deref(), Some("tok-live"));
+    }
+
+    #[test]
+    fn chatgpt_tokens_in_auth_json_are_a_sign_in() {
+        let fixture = Fixture::new();
+        let _ = fixture.write_file(
+            "auth.json",
+            r#"{"tokens":{"access_token":"tok-live","refresh_token":"r"}}"#,
+        );
+        let _home = EnvVarGuard::set("CODEX_HOME", fixture.root());
+
+        assert!(has_sign_in());
+    }
+
+    #[test]
+    fn api_key_auth_json_is_no_sign_in() {
+        let fixture = Fixture::new();
+        let _ = fixture.write_file("auth.json", r#"{"OPENAI_API_KEY":"sk-test","tokens":null}"#);
+        let _home = EnvVarGuard::set("CODEX_HOME", fixture.root());
+
+        assert!(!has_sign_in());
+    }
+
+    #[test]
+    fn missing_auth_json_is_no_sign_in() {
+        let fixture = Fixture::new();
+        let _home = EnvVarGuard::set("CODEX_HOME", fixture.root());
+
+        assert!(!has_sign_in());
     }
 
     #[test]

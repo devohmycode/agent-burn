@@ -69,3 +69,14 @@ renewed first, with the same lock and write-back Claude Code uses, so running
 When Anthropic refuses the renewal, the output adds
 `claudeAccountStatus: "signInExpired"` and keeps the last shared reading in
 `claudeAccount` when one is still available.
+
+### Account sign-in status
+
+Live `agent-burn summary --value --json` sets `claudeAccountStatus`,
+`codexAccountStatus`, or `cursorAccountStatus` to `"signedOut"` when an
+installed agent has no stored sign-in, so its limits cannot load. Claude and
+Codex count as installed when their logs are detected, Cursor when its
+`state.vscdb` exists. A Codex `auth.json` holding only an API key counts as
+signed out, because it has no live limits. Offline runs never read sign-ins and
+omit these fields; a missing field means no sign-in problem was found, not that
+the limits are live.

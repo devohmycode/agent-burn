@@ -26,7 +26,7 @@ const BAR_WIDTH: usize = 16;
 
 /// Rough per-image cost for Codex's gpt-image generations (not in the logs, so
 /// estimated): a ~1–1.5 MP image at standard/high quality. Used only for the
-/// separate, clearly-labelled image-generation estimate in the harness view.
+/// separate, clearly-labeled image-generation estimate in the harness view.
 const CODEX_IMAGE_PRICE_ESTIMATE: f64 = 0.15;
 
 /// Number of top models shown in the table before the remainder is collapsed
@@ -98,11 +98,16 @@ pub(super) fn run(args: SummaryArgs) -> Result<()> {
 
     if wants_json(&shared) {
         let mut output = detail::to_json(&summary, &result.rows);
+        // A `signedOut` status names an installed agent without a stored
+        // sign-in; offline runs never consult sign-ins, so they carry none.
         if value
             && (shared.agents.is_empty() || shared.agents.iter().any(|agent| agent == "cursor"))
-            && let Some(account) = cursor::load_account(shared.offline)
         {
-            output["cursorAccount"] = account;
+            if let Some(account) = cursor::load_account(shared.offline) {
+                output["cursorAccount"] = account;
+            } else if !shared.offline && cursor::signed_out() {
+                output["cursorAccountStatus"] = json!("signedOut");
+            }
         }
         if value
             && (shared.agents.is_empty() || shared.agents.iter().any(|agent| agent == "claude"))
@@ -113,7 +118,16 @@ pub(super) fn run(args: SummaryArgs) -> Result<()> {
             }
             if claude.sign_in_expired {
                 output["claudeAccountStatus"] = json!("signInExpired");
+            } else if claude.signed_out && result.detected_agents.contains(&"claude") {
+                output["claudeAccountStatus"] = json!("signedOut");
             }
+        }
+        if value
+            && !shared.offline
+            && result.detected_agents.contains(&"codex")
+            && !codex::has_sign_in()
+        {
+            output["codexAccountStatus"] = json!("signedOut");
         }
         if let (Some(object), Some(subscription)) = (output.as_object_mut(), subscription.as_ref())
         {
@@ -141,7 +155,7 @@ pub(super) fn run(args: SummaryArgs) -> Result<()> {
 
 /// Build the embedded JSON payload for the interactive HTML report: the full
 /// per-day cost/token matrix (so the browser can re-filter any date range) plus
-/// stable per-model and per-agent colours, totals, and subscription value.
+/// stable per-model and per-agent colors, totals, and subscription value.
 fn report_payload(
     summary: &Summary,
     rows: &[AllRow],
