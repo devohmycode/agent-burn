@@ -1,0 +1,256 @@
+{
+	"capturedAtMs": 1791881965000,
+	"engine": "agent-burn 20.0.21",
+	"runs": [
+		{
+			"args": ["summary", "--value", "--breakdown", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "summary",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "quotas",
+			"stderr": null,
+			"stdout": "quotas/summary.json"
+		},
+		{
+			"args": ["harness", "claude", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-claude",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "quotas",
+			"stderr": null,
+			"stdout": "quotas/harness-claude.json"
+		},
+		{
+			"args": ["harness", "codex", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-codex",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "quotas",
+			"stderr": null,
+			"stdout": "quotas/harness-codex.json"
+		},
+		{
+			"args": ["summary", "--value", "--breakdown", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "summary",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "single-source",
+			"stderr": null,
+			"stdout": "single-source/summary.json"
+		},
+		{
+			"args": ["harness", "claude", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-claude",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "single-source",
+			"stderr": null,
+			"stdout": "single-source/harness-claude.json"
+		},
+		{
+			"args": ["harness", "codex", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-codex",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "single-source",
+			"stderr": null,
+			"stdout": "single-source/harness-codex.json"
+		},
+		{
+			"args": ["summary", "--value", "--breakdown", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "summary",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "partial",
+			"stderr": null,
+			"stdout": "partial/summary.json"
+		},
+		{
+			"args": ["harness", "claude", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-claude",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "partial",
+			"stderr": null,
+			"stdout": "partial/harness-claude.json"
+		},
+		{
+			"args": ["harness", "codex", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-codex",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "partial",
+			"stderr": null,
+			"stdout": "partial/harness-codex.json"
+		},
+		{
+			"args": ["summary", "--value", "--breakdown", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "summary",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "no-quota",
+			"stderr": null,
+			"stdout": "no-quota/summary.json"
+		},
+		{
+			"args": ["harness", "claude", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-claude",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "no-quota",
+			"stderr": null,
+			"stdout": "no-quota/harness-claude.json"
+		},
+		{
+			"args": ["harness", "codex", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-codex",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "no-quota",
+			"stderr": null,
+			"stdout": "no-quota/harness-codex.json"
+		},
+		{
+			"args": [
+				"summary",
+				"--value",
+				"--breakdown",
+				"--json",
+				"--no-color",
+				"--timezone",
+				"UTC",
+				"--offline"
+			],
+			"command": "summary",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "no-quota-offline",
+			"stderr": null,
+			"stdout": "no-quota-offline/summary.json"
+		},
+		{
+			"args": ["summary", "--value", "--breakdown", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "summary",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "no-source",
+			"stderr": null,
+			"stdout": "no-source/summary.json"
+		},
+		{
+			"args": ["harness", "claude", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-claude",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "no-source",
+			"stderr": null,
+			"stdout": "no-source/harness-claude.json"
+		},
+		{
+			"args": ["harness", "codex", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-codex",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "no-source",
+			"stderr": null,
+			"stdout": "no-source/harness-codex.json"
+		},
+		{
+			"args": ["summary", "--value", "--breakdown", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "summary",
+			"env": {
+				"CLAUDE_CONFIG_DIR": "C:\\Fixture\\error\\missing-claude-config"
+			},
+			"exitCode": 1,
+			"scenario": "error",
+			"stderr": "error/summary.stderr.txt",
+			"stdout": null
+		},
+		{
+			"args": ["harness", "claude", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-claude",
+			"env": {
+				"CLAUDE_CONFIG_DIR": "C:\\Fixture\\error\\missing-claude-config"
+			},
+			"exitCode": 1,
+			"scenario": "error",
+			"stderr": "error/harness-claude.stderr.txt",
+			"stdout": null
+		},
+		{
+			"args": ["harness", "codex", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-codex",
+			"env": {
+				"CLAUDE_CONFIG_DIR": "C:\\Fixture\\error\\missing-claude-config"
+			},
+			"exitCode": 0,
+			"scenario": "error",
+			"stderr": null,
+			"stdout": "error/harness-codex.json"
+		},
+		{
+			"args": ["harness", "cursor", "--value", "--json", "--no-color"],
+			"command": "harness-cursor",
+			"env": {
+				"CLAUDE_CONFIG_DIR": "C:\\Fixture\\error\\missing-claude-config"
+			},
+			"exitCode": 2,
+			"scenario": "error",
+			"stderr": "error/harness-cursor.stderr.txt",
+			"stdout": null
+		},
+		{
+			"args": ["summary", "--value", "--breakdown", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "summary",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "live-accounts",
+			"stderr": null,
+			"stdout": "live-accounts/summary.json"
+		},
+		{
+			"args": ["harness", "codex", "--value", "--json", "--no-color", "--timezone", "UTC"],
+			"command": "harness-codex",
+			"env": null,
+			"exitCode": 0,
+			"scenario": "live-accounts",
+			"stderr": null,
+			"stdout": "live-accounts/harness-codex.json"
+		}
+	],
+	"scenarios": [
+		{
+			"description": "Claude and Codex logs; Claude meters from a fresh Claude Code usage cache; Codex meters from session logs; no Codex sign-in.",
+			"name": "quotas"
+		},
+		{
+			"description": "Only Claude: logs and a fresh Claude Code usage cache.",
+			"name": "single-source"
+		},
+		{
+			"description": "Claude sign-in expired without a refresh token; Codex meters from session logs; Cursor installed without a sign-in.",
+			"name": "partial"
+		},
+		{
+			"description": "Claude and Codex logs without any sign-in, usage cache or logged meter.",
+			"name": "no-quota"
+		},
+		{
+			"description": "The no-quota profile with --offline: sign-ins and live meters are not consulted.",
+			"name": "no-quota-offline"
+		},
+		{
+			"description": "An empty profile: no agent data at all.",
+			"name": "no-source"
+		},
+		{
+			"description": "CLAUDE_CONFIG_DIR names a missing folder; Codex logs are valid.",
+			"name": "error"
+		},
+		{
+			"constructed": true,
+			"description": "Constructed, not captured: the quotas outputs plus the shapes only signed-in accounts produce (Cursor usage and balances, Codex dashboard history and banked resets).",
+			"name": "live-accounts"
+		}
+	]
+}

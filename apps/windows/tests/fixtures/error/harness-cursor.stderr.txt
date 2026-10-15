@@ -1,0 +1,2 @@
+Unsupported agent 'cursor' for harness. Use 'agent-burn harness <codex|claude>'.
+Run 'agent-burn --help' for usage.

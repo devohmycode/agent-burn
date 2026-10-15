@@ -1,0 +1,13 @@
+{
+	"agents": [],
+	"daily": [],
+	"models": [],
+	"subscription": {
+		"agents": [],
+		"period": null
+	},
+	"totals": {
+		"totalCost": 0,
+		"totalTokens": 0
+	}
+}

@@ -1,0 +1,143 @@
+{
+	"agents": [
+		{
+			"agent": "claude",
+			"daily": [
+				{
+					"cost": 0.011575,
+					"date": "2026-10-04",
+					"tokens": 18400
+				},
+				{
+					"cost": 0.112,
+					"date": "2026-10-10",
+					"tokens": 64600
+				},
+				{
+					"cost": 0.14525,
+					"date": "2026-10-12",
+					"tokens": 57800
+				}
+			],
+			"models": [
+				{
+					"model": "claude-sonnet-4-5-20250929",
+					"percentage": 68.07402585325026,
+					"totalCost": 0.183,
+					"totalTokens": 111600
+				},
+				{
+					"model": "claude-opus-4-1-20250805",
+					"percentage": 27.620199014228582,
+					"totalCost": 0.07425,
+					"totalTokens": 10800
+				},
+				{
+					"model": "claude-haiku-4-5-20251001",
+					"percentage": 4.305775132521157,
+					"totalCost": 0.011575,
+					"totalTokens": 18400
+				}
+			],
+			"tokenBreakdown": {
+				"cacheRead": 124000,
+				"cacheWrite": 5500,
+				"input": 8000,
+				"output": 3300
+			},
+			"totalCost": 0.268825,
+			"totalTokens": 140800
+		}
+	],
+	"claudeAccount": {
+		"extraEnabled": true,
+		"extraLimitUSD": 50.0,
+		"extraUsedPercent": 25.0,
+		"extraUsedUSD": 12.5,
+		"observedAtMs": 1791881966000,
+		"scoped": [
+			{
+				"name": "Opus",
+				"resetsAtMs": 1792141166000,
+				"usedPercent": 21.0
+			}
+		],
+		"sessionResetsAtMs": 1791889166000,
+		"sessionUsedPercent": 37.0,
+		"weeklyResetsAtMs": 1792141166000,
+		"weeklyUsedPercent": 58.0
+	},
+	"daily": [
+		{
+			"cost": 0.011575,
+			"date": "2026-10-04",
+			"tokens": 18400
+		},
+		{
+			"cost": 0.112,
+			"date": "2026-10-10",
+			"tokens": 64600
+		},
+		{
+			"cost": 0.14525,
+			"date": "2026-10-12",
+			"tokens": 57800
+		}
+	],
+	"models": [
+		{
+			"model": "claude-sonnet-4-5-20250929",
+			"percentage": 68.07402585325026,
+			"totalCost": 0.183,
+			"totalTokens": 111600
+		},
+		{
+			"model": "claude-opus-4-1-20250805",
+			"percentage": 27.620199014228582,
+			"totalCost": 0.07425,
+			"totalTokens": 10800
+		},
+		{
+			"model": "claude-haiku-4-5-20251001",
+			"percentage": 4.305775132521157,
+			"totalCost": 0.011575,
+			"totalTokens": 18400
+		}
+	],
+	"subscription": {
+		"agents": [
+			{
+				"agent": "claude",
+				"estimate": {
+					"fullQuotaValue": 0.4435344827586207,
+					"monthlyValue": 1.928582974137931,
+					"projectedUsePercent": 101.49958413364833,
+					"valueMultiple": 0.01928582974137931
+				},
+				"liveLimits": true,
+				"periodUsage": 0.268825,
+				"plan": "Max 5×",
+				"pricePerMonth": 100,
+				"resetCreditsAvailable": null,
+				"shortWindow": {
+					"label": "5h",
+					"usedPercent": 37
+				},
+				"window": {
+					"apiEquivalentSpent": 0.25725,
+					"elapsedMinutes": 5760.0236,
+					"label": "weekly",
+					"usedPercent": 58
+				}
+			}
+		],
+		"period": {
+			"from": "2026-10-04",
+			"to": "2026-10-12"
+		}
+	},
+	"totals": {
+		"totalCost": 0.268825,
+		"totalTokens": 140800
+	}
+}

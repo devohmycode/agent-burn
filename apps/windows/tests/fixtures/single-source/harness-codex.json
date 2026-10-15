@@ -1,0 +1,21 @@
+{
+	"agent": "codex",
+	"apiEquivalentPerMonth": 0,
+	"daily": [],
+	"economics": null,
+	"estimate": null,
+	"imageGenerations": {
+		"count": 0,
+		"estimatedCost": 0,
+		"pricePerImageEstimate": 0.15
+	},
+	"limitUsageDaily": [],
+	"liveLimits": false,
+	"plan": null,
+	"pricePerMonth": null,
+	"resetCreditsAvailable": null,
+	"spendMix": [],
+	"topModels": [],
+	"weeklyTrend": [],
+	"window": null
+}

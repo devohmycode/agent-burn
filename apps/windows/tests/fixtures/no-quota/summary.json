@@ -1,0 +1,166 @@
+{
+	"agents": [
+		{
+			"agent": "claude",
+			"daily": [
+				{
+					"cost": 0.011575,
+					"date": "2026-10-04",
+					"tokens": 18400
+				},
+				{
+					"cost": 0.112,
+					"date": "2026-10-10",
+					"tokens": 64600
+				},
+				{
+					"cost": 0.14525,
+					"date": "2026-10-12",
+					"tokens": 57800
+				}
+			],
+			"models": [
+				{
+					"model": "claude-sonnet-4-5-20250929",
+					"percentage": 68.07402585325026,
+					"totalCost": 0.183,
+					"totalTokens": 111600
+				},
+				{
+					"model": "claude-opus-4-1-20250805",
+					"percentage": 27.620199014228582,
+					"totalCost": 0.07425,
+					"totalTokens": 10800
+				},
+				{
+					"model": "claude-haiku-4-5-20251001",
+					"percentage": 4.305775132521157,
+					"totalCost": 0.011575,
+					"totalTokens": 18400
+				}
+			],
+			"tokenBreakdown": {
+				"cacheRead": 124000,
+				"cacheWrite": 5500,
+				"input": 8000,
+				"output": 3300
+			},
+			"totalCost": 0.268825,
+			"totalTokens": 140800
+		},
+		{
+			"agent": "codex",
+			"daily": [
+				{
+					"cost": 0.0322,
+					"date": "2026-10-11",
+					"tokens": 19400
+				},
+				{
+					"cost": 0.0434,
+					"date": "2026-10-12",
+					"tokens": 28100
+				},
+				{
+					"cost": 0.016712499999999998,
+					"date": "2026-10-13",
+					"tokens": 9800
+				}
+			],
+			"models": [
+				{
+					"model": "gpt-5.3-codex",
+					"percentage": 100,
+					"totalCost": 0.0923125,
+					"totalTokens": 57300
+				}
+			],
+			"tokenBreakdown": {
+				"cacheRead": 38500,
+				"cacheWrite": 0,
+				"input": 14500,
+				"output": 4300
+			},
+			"totalCost": 0.0923125,
+			"totalTokens": 57300
+		}
+	],
+	"claudeAccountStatus": "signedOut",
+	"codexAccountStatus": "signedOut",
+	"daily": [
+		{
+			"cost": 0.011575,
+			"date": "2026-10-04",
+			"tokens": 18400
+		},
+		{
+			"cost": 0.112,
+			"date": "2026-10-10",
+			"tokens": 64600
+		},
+		{
+			"cost": 0.0322,
+			"date": "2026-10-11",
+			"tokens": 19400
+		},
+		{
+			"cost": 0.18865,
+			"date": "2026-10-12",
+			"tokens": 85900
+		},
+		{
+			"cost": 0.016712499999999998,
+			"date": "2026-10-13",
+			"tokens": 9800
+		}
+	],
+	"models": [
+		{
+			"model": "claude-sonnet-4-5-20250929",
+			"percentage": 50.67322003392059,
+			"totalCost": 0.183,
+			"totalTokens": 111600
+		},
+		{
+			"model": "gpt-5.3-codex",
+			"percentage": 25.56159357585407,
+			"totalCost": 0.0923125,
+			"totalTokens": 57300
+		},
+		{
+			"model": "claude-opus-4-1-20250805",
+			"percentage": 20.560035997369425,
+			"totalCost": 0.07425,
+			"totalTokens": 10800
+		},
+		{
+			"model": "claude-haiku-4-5-20251001",
+			"percentage": 3.205150392855906,
+			"totalCost": 0.011575,
+			"totalTokens": 18400
+		}
+	],
+	"subscription": {
+		"agents": [
+			{
+				"agent": "claude",
+				"estimate": null,
+				"liveLimits": false,
+				"periodUsage": 0.268825,
+				"plan": "Max 5×",
+				"pricePerMonth": 100,
+				"resetCreditsAvailable": null,
+				"shortWindow": null,
+				"window": null
+			}
+		],
+		"period": {
+			"from": "2026-10-04",
+			"to": "2026-10-13"
+		}
+	},
+	"totals": {
+		"totalCost": 0.3611375,
+		"totalTokens": 198100
+	}
+}

@@ -1,0 +1,90 @@
+{
+	"agent": "codex",
+	"apiEquivalentPerMonth": 0.0923125,
+	"daily": [
+		{
+			"cost": 0.0322,
+			"date": "2026-10-11"
+		},
+		{
+			"cost": 0.0434,
+			"date": "2026-10-12"
+		},
+		{
+			"cost": 0.016712499999999998,
+			"date": "2026-10-13"
+		}
+	],
+	"economics": {
+		"apiEquivalentPerMonth": 0.0923125,
+		"discountPercent": 0,
+		"pricePerMonth": 20,
+		"subsidyPerMonth": -19.9076875,
+		"valueMultiple": 0.004615625
+	},
+	"estimate": {
+		"fullQuotaValue": 0.14652777777777776,
+		"monthlyValue": 0.6371341765873014,
+		"projectedUsePercent": 110.24868314072916,
+		"valueMultiple": 0.031856708829365074
+	},
+	"imageGenerations": {
+		"count": 0,
+		"estimatedCost": 0,
+		"pricePerImageEstimate": 0.15
+	},
+	"limitUsageDaily": [],
+	"liveLimits": true,
+	"plan": "Plus",
+	"pricePerMonth": 20,
+	"resetCreditsAvailable": null,
+	"spendMix": [
+		{
+			"costPercent": 27.488151658767773,
+			"costUSD": 0.025375000000000005,
+			"key": "input",
+			"label": "input",
+			"tokenPercent": 25.30541012216405,
+			"tokens": 14500
+		},
+		{
+			"costPercent": 65.21327014218008,
+			"costUSD": 0.0602,
+			"key": "output",
+			"label": "output",
+			"tokenPercent": 7.504363001745201,
+			"tokens": 4300
+		},
+		{
+			"costPercent": 7.298578199052132,
+			"costUSD": 0.0067375,
+			"key": "cacheRead",
+			"label": "cached input",
+			"tokenPercent": 67.19022687609075,
+			"tokens": 38500
+		}
+	],
+	"topModels": [
+		{
+			"cost": 0.0923125,
+			"model": "gpt-5.3-codex",
+			"tokens": 57300
+		}
+	],
+	"weeklyTrend": [
+		{
+			"cost": 0.0322,
+			"weekStart": "2026-10-05"
+		},
+		{
+			"cost": 0.0601125,
+			"weekStart": "2026-10-12"
+		}
+	],
+	"window": {
+		"apiEquivalentSpent": 0.0923125,
+		"elapsedPercent": 57.14353968253968,
+		"usedPercent": 63,
+		"windowMinutes": 10080
+	}
+}

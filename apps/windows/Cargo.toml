@@ -1,0 +1,91 @@
+[package]
+name = "agent-burn-windows"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.96"
+# Agent Burn is MIT; parts adapted from Taskbar Hub are Apache-2.0 (see NOTICE).
+license = "MIT AND Apache-2.0"
+description = "Agent Burn for Windows: usage dashboard and taskbar widget"
+publish = false
+
+[lib]
+name = "agent_burn_windows"
+path = "src/lib.rs"
+
+[[bin]]
+name = "agent-burn-windows"
+path = "src/main.rs"
+
+# The engine client tests run their own executable as a fake engine, which
+# needs a `main` of its own instead of libtest's.
+[[test]]
+name = "cli_client"
+harness = false
+
+[[test]]
+name = "collector"
+harness = false
+
+[dependencies]
+# Versions follow Taskbar-Hub, whose dashboard and widget components are
+# adapted here; Cargo.lock was seeded from its lock file.
+eframe = { version = "0.36", default-features = false, features = ["default_fonts", "glow"] }
+# The Direct3D 11 / WARP dashboard (renderer fallback) drives winit and
+# egui-winit itself.
+egui-directx11 = { version = "=0.13.0", path = "vendor/egui-directx11" }
+egui-winit = { version = "0.36", default-features = false, features = ["clipboard"] }
+raw-window-handle = "0.6"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+winit = { version = "0.30", default-features = false, features = ["rwh_06"] }
+
+[dependencies.windows]
+version = "0.62"
+features = [
+	"Win32_Foundation",
+	"Win32_Graphics_Direct3D",
+	"Win32_Graphics_Direct3D11",
+	"Win32_Graphics_Dwm",
+	"Win32_Graphics_Dxgi",
+	"Win32_Graphics_Dxgi_Common",
+	"Win32_Graphics_Gdi",
+	"Win32_Security",
+	"Win32_Storage_FileSystem",
+	"Win32_System_Com",
+	"Win32_System_JobObjects",
+	"Win32_System_LibraryLoader",
+	"Win32_System_Ole",
+	"Win32_System_Registry",
+	"Win32_System_SystemInformation",
+	"Win32_System_Threading",
+	"Win32_System_Time",
+	"Win32_System_Variant",
+	"Win32_UI_Accessibility",
+	"Win32_UI_Controls",
+	"Win32_UI_HiDpi",
+	"Win32_UI_Input_KeyboardAndMouse",
+	"Win32_UI_Shell",
+	"Win32_UI_WindowsAndMessaging",
+]
+
+[dev-dependencies]
+tempfile = "3"
+
+[dev-dependencies.windows]
+version = "0.62"
+features = ["Win32_System_Console", "Win32_System_Threading"]
+
+[build-dependencies]
+winresource = "0.1.31"
+
+[patch.crates-io]
+# Text-only clipboard, without arboard's image codecs; see
+# vendor/egui-winit/PATCH.md.
+egui-winit = { path = "vendor/egui-winit" }
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true
+codegen-units = 1
+panic = "abort"

@@ -1,0 +1,61 @@
+{
+	"agent": "codex",
+	"apiEquivalentPerMonth": 0.0923125,
+	"daily": [],
+	"economics": null,
+	"estimate": null,
+	"imageGenerations": {
+		"count": 0,
+		"estimatedCost": 0,
+		"pricePerImageEstimate": 0.15
+	},
+	"limitUsageDaily": [],
+	"liveLimits": false,
+	"plan": null,
+	"pricePerMonth": null,
+	"resetCreditsAvailable": null,
+	"spendMix": [
+		{
+			"costPercent": 27.488151658767773,
+			"costUSD": 0.025375000000000005,
+			"key": "input",
+			"label": "input",
+			"tokenPercent": 25.30541012216405,
+			"tokens": 14500
+		},
+		{
+			"costPercent": 65.21327014218008,
+			"costUSD": 0.0602,
+			"key": "output",
+			"label": "output",
+			"tokenPercent": 7.504363001745201,
+			"tokens": 4300
+		},
+		{
+			"costPercent": 7.298578199052132,
+			"costUSD": 0.0067375,
+			"key": "cacheRead",
+			"label": "cached input",
+			"tokenPercent": 67.19022687609075,
+			"tokens": 38500
+		}
+	],
+	"topModels": [
+		{
+			"cost": 0.0923125,
+			"model": "gpt-5.3-codex",
+			"tokens": 57300
+		}
+	],
+	"weeklyTrend": [
+		{
+			"cost": 0.0322,
+			"weekStart": "2026-10-05"
+		},
+		{
+			"cost": 0.0601125,
+			"weekStart": "2026-10-12"
+		}
+	],
+	"window": null
+}

@@ -1,0 +1,19 @@
+[private]
+default:
+    @just --list
+
+# Build both executables and the versioned ZIP (Windows, PowerShell 7)
+build:
+    pwsh ./build.ps1
+
+# Format check, clippy, tests of the app and the engine, then the ZIP
+check:
+    pwsh ./build.ps1 -Check
+
+# Run the app's tests
+test:
+    cargo test --locked
+
+# Format the app's sources
+fmt:
+    cargo fmt

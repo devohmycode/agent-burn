@@ -1,0 +1,78 @@
+Agent Burn for Windows
+
+Agent Burn is licensed under the MIT License (see ../agent-burn/LICENSE).
+
+-------------------------------------------------------------------------------
+Portions adapted from Taskbar Hub
+-------------------------------------------------------------------------------
+
+Taskbar Hub (https://github.com/devohmycode/Taskbar-Hub)
+Copyright 2026 DevOhMyCode
+Licensed under the Apache License, Version 2.0 (licenses/APACHE-2.0.txt).
+
+Adapted files, each marked in its header:
+
+- src/windows_theme.rs               from src/theme.rs
+- src/ui/theme.rs, src/ui/tokens.rs  from src/ui/theme.rs, src/ui/tokens.rs
+- src/ui/components/fluent.rs, toggle.rs, text_field.rs
+                                     from src/ui/components/
+- src/dashboard/frame.rs, the renderer fallback in src/dashboard/mod.rs
+                                     from src/dashboard/runner.rs
+- src/dashboard/warp.rs              from src/dashboard/warp.rs
+- src/dashboard/app.rs (shell layout, live theme)
+                                     from src/dashboard/app.rs
+- src/settings.rs, src/files.rs (atomic write)
+                                     from src/app_settings.rs
+- src/widget/canvas.rs, color.rs, shapes.rs, text.rs
+                                     from src/render/
+- src/widget/draw.rs (row positions and sizes)
+                                     from src/render/pieces.rs and docs/SPECS.md
+- src/widget/shell.rs                from src/native_interop.rs
+- src/widget/window.rs               from src/hub/presenter.rs, src/hub/host.rs
+- src/widget/occupancy.rs            from src/hub/collision.rs
+- src/widget/layout.rs (docking and floating rules)
+                                     from src/hub/layout.rs
+- src/hub/tray.rs                    from src/tray_icon.rs
+- src/hub/mod.rs (drag, tooltip, Explorer restart)
+                                     from src/hub/host.rs
+- src/app.manifest                   from src/app.manifest
+
+Taskbar Hub's NOTICE also reproduces, for parts of its source, this MIT
+License notice:
+
+  MIT License
+
+  Copyright (C) 2026 Code Zeno Pty Ltd
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+
+-------------------------------------------------------------------------------
+Third-party components
+-------------------------------------------------------------------------------
+
+- vendor/egui-directx11 (Nekomaru) and vendor/egui-winit (Emil Ernerfeldt):
+  MIT License or Apache License 2.0; see LICENSE-MIT and LICENSE-APACHE in
+  each directory, and PATCH.md for the local changes.
+- egui's default fonts, embedded through epaint_default_fonts: Ubuntu Light
+  (Ubuntu Font License 1.0), Hack (MIT and Bitstream Vera licenses), Noto
+  Emoji and emoji-icon-font (SIL Open Font License 1.1).
+- Chart colors: the reference categorical palette of the data visualization
+  method used for the usage charts.
+- Rust crates listed in Cargo.lock: each under its own license, as declared in
+  its package metadata.

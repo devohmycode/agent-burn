@@ -1,0 +1,1 @@
+Error: CliError("No valid Claude data directories found in CLAUDE_CONFIG_DIR. Expected each path to be a Claude config directory containing 'projects/', or the 'projects/' directory itself: C:\\Fixture\\error\\missing-claude-config")
