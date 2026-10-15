@@ -1,6 +1,6 @@
 # Agent Burn
 
-Native macOS app and local CLI for coding-agent usage, limits, and subscription value.
+Native macOS and Windows apps and local CLI for coding-agent usage, limits, and subscription value.
 
 Site: [agent-burn.melvynx.dev](https://agent-burn.melvynx.dev)
 
@@ -9,6 +9,8 @@ Site: [agent-burn.melvynx.dev](https://agent-burn.melvynx.dev)
 ## Install
 
 **Mac app:** [Download](https://agent-burn.melvynx.dev/download), unzip, move to Applications. macOS 14+, Apple Silicon and Intel. The app bundles the CLI.
+
+**Windows app:** [Download the ZIP](https://github.com/Melvynx/agent-burn/releases), extract it anywhere, run `agent-burn-windows.exe`. Windows 10 and 11, x64. No installer or administrator rights; the archive includes the CLI.
 
 **CLI:**
 
@@ -31,6 +33,8 @@ agent-burn summary --json
 ```
 
 macOS app: menu-bar quota for Codex, Claude, and Cursor, plus a dashboard across detected harnesses. Build locally with `just macos::run`. Details: [apps/macos](https://github.com/Melvynx/agent-burn/tree/main/apps/macos).
+
+Windows app: taskbar widget for the same quotas, a notification-area icon and the dashboard. Build locally with `pwsh apps/windows/build.ps1`. Details: [apps/windows](https://github.com/Melvynx/agent-burn/tree/main/apps/windows).
 
 ## Subscription Value
 

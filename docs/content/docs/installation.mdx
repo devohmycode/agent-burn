@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Download the Mac app or run the CLI with npx, pnpm, bun, or Nix.
+description: Download the Mac or Windows app, or run the CLI with npx, pnpm, bun, or Nix.
 icon: Download
 ---
 
@@ -103,3 +103,41 @@ shown explicitly.
 
 The app uses the existing [JSON reports](/docs/json-output) and your local CLI
 configuration. No additional sign-in is required by the app.
+
+## Windows app
+
+Download `agent-burn-windows-<version>-x64.zip` and its `.sha256` from the
+[Windows releases](https://github.com/Melvynx/agent-burn/releases). The
+release supports Windows 10 and 11 on x64. To install it:
+
+1. Extract the archive anywhere you can write.
+2. Run `agent-burn-windows.exe`.
+
+There is no installer and no administrator prompt. The archive bundles the CLI
+(`agent-burn.exe`), so Rust and Node.js are not required. The executables are
+not code-signed, so SmartScreen may ask for confirmation on first launch.
+
+The app has three parts:
+
+- **Dashboard:** spend by day, model and agent, quota cards, and quota history
+  with forecasts.
+- **Taskbar widget:** shows the Claude 5-hour and weekly quotas, the Codex
+  weekly quota and the Cursor spend next to the notification area.
+- **Notification-area icon:** opens the dashboard and offers the widget's menu.
+
+Closing the dashboard keeps the widget running. Choose **Quit Agent Burn** to
+end everything.
+
+Its settings control the following:
+
+- **Collect quotas after closing:** a Task Scheduler task of your account, with
+  no administrator rights.
+- **Start when you sign in:** starts Agent Burn when you sign in to Windows.
+- **Offline mode.**
+- **Updates:** links to newer Windows releases. Nothing is downloaded on its
+  own.
+
+Settings and histories live in `%LOCALAPPDATA%\Agent Burn`, so replacing the
+extracted folder keeps them. See
+[apps/windows](https://github.com/Melvynx/agent-burn/tree/main/apps/windows)
+for sources, backups, uninstalling and building with `apps/windows/build.ps1`.
